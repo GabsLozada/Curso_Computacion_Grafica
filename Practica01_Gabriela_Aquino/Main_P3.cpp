@@ -1,6 +1,6 @@
 //Aquino Lozada Gabriela
-//Previo 3
-//Fecha de entrega: 24 de agosto del 2025
+//Practica 3
+//Fecha de entrega: 29 de agosto del 2025
 //Numero de cuenta: 319040012
 
 #include<iostream>
@@ -34,7 +34,7 @@ int main() {
 
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
-	GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "Previo 3 Gabriela Aquino", nullptr, nullptr);
+	GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "Practica 3 Gabriela Aquino", nullptr, nullptr);
 
 	int screenWidth, screenHeight;
 
@@ -223,8 +223,8 @@ int main() {
 		glm::mat4 model = glm::mat4(1);
 		glm::mat4 view = glm::mat4(1);
 
-		view = glm::translate(view, glm::vec3(-5.0f, -3.0f, -10.0f));
-		model = glm::rotate(model, 0.5f, glm::vec3(0.0f, 1.0f, 0.0f)); // use to compare orthographic and perspective projection
+		view = glm::translate(view, glm::vec3(5.0f, -3.0f, -10.0f)); //Es para ver la vista que queremos tener del cubo
+		model = glm::rotate(model, 0.0f, glm::vec3(0.0f, 1.0f, 0.0f)); // use to compare orthographic and perspective projection
 		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
 		//view = glm::translate( view, glm::vec3( screenWidth / 2, screenHeight / 2,-700.0f ) ); // use with orthographic projection
 
@@ -236,32 +236,77 @@ int main() {
 		glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 
-
 		glBindVertexArray(VAO);
 		glDrawArrays(GL_TRIANGLES, 0, 36);
-		//model = glm::mat4(1);
-		//model = glm::translate(model, glm::vec3(3.0f, -1.0f, 0.0f));
-		//model = glm::rotate(model, 75.0f, glm::vec3(2.0f, 0.0f, 2.0f)); // use to compare orthographic and perspective projection
-		//model = glm::scale(model, glm::vec3(1.0f, 1.0f, 2.0f));
 
+		//Segundo cubo
 
-		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		//glDrawArrays(GL_TRIANGLES, 0, 36);
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(-3.5f, 0.2f, 0.7f)); //Es para ver la vista que queremos tener del cubo
+		model = glm::rotate(model, 4.8f, glm::vec3(0.0f, 1.0f, 0.0f)); // use to compare orthographic and perspective projection
+		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
+		////view = glm::translate( view, glm::vec3( screenWidth / 2, screenHeight / 2,-700.0f ) ); // use with orthographic projection
 
-		//model = glm::mat4(1);
-		//model = glm::translate(model, glm::vec3(4.0f, 1.0f, -1.0f));
-		//model = glm::rotate(model, 75.0f, glm::vec3(1.0f, 1.0f, 1.0f)); // use to compare orthographic and perspective projection
-		//model = glm::scale(model, glm::vec3(0.5f, 0.8f, 0.5f));
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);
 
-		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		//glDrawArrays(GL_TRIANGLES, 0, 36);
+		//Tercer Cubo
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(-6.2f, 0.2f, 1.2f)); //Es para ver la vista que queremos tener del cubo
+		model = glm::rotate(model, 3.3f, glm::vec3(0.0f, 1.0f, 0.0f)); // use to compare orthographic and perspective projection
+		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
+		////view = glm::translate( view, glm::vec3( screenWidth / 2, screenHeight / 2,-700.0f ) ); // use with orthographic projection
+
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+
+		//Cuarto cubo
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(-8.8f, 0.2f, 1.6f)); //Es para ver la vista que queremos tener del cubo
+		model = glm::rotate(model, 1.8f, glm::vec3(0.0f, 1.0f, 0.0f)); // use to compare orthographic and perspective projection
+		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
+		////view = glm::translate( view, glm::vec3( screenWidth / 2, screenHeight / 2,-700.0f ) ); // use with orthographic projection
+
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+
+		//Quinto cubo segundo piso
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(-2.0f, 2.5f, 2.0f));
+		model = glm::rotate(model, 3.141f, glm::vec3(1.0f, 0.0f, -0.2f)); // use to compare orthographic and perspective projection
+		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
+
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+
+		//Sexto cubo segundo piso
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(-7.8f, 2.5f, 2.5f));
+		model = glm::rotate(model,4.712f, glm::vec3(1.0f, 0.0f, 0.0f)); // use to compare orthographic and perspective projection
+		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
+
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+
+		//Septimo cubo segundo piso
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(-5.0f, 2.5f, 2.5f));
+		model = glm::rotate(model, 0.78f, glm::vec3(0.0f, 1.0f, 0.0f)); // use to compare orthographic and perspective projection
+		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
+
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+
+		//Octavo cubo tercer piso
+		model = glm::mat4(1);
+		model = glm::translate(model, glm::vec3(-6.8f, 4.49f, 2.9f));
+		model = glm::rotate(model, 1.57f, glm::vec3(1.0f, 0.0f, 0.00f)); // use to compare orthographic and perspective projection
+		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
+
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+
 		glBindVertexArray(0);
-
-
-
-
-
-
 
 		// Swap the screen buffers
 		glfwSwapBuffers(window);
