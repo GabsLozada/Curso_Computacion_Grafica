@@ -215,7 +215,7 @@ int main() {
 
 		// Cuerpo del lado negro enfrente COLOR NEGRO
 		glUniform1i(uUseSolidColor, GL_TRUE);
-		glUniform3f(uSolidColor, 0.545f, 0.412f, 0.325f);
+		glUniform3f(uSolidColor, 0.357f, 0.247f, 0.161f);
 
 		model = glm::mat4(1.0f); // Crea una matriz identidad para el cuerpo
 		model = glm::scale(model, glm::vec3(0.4f, 1.0f, 0.1f)); // Escala el cuerpo para hacerlo más ancho
@@ -225,21 +225,41 @@ int main() {
 
 		// Cuerpo del lado blanco enfrente COLOR BLANCO
 		glUniform1i(uUseSolidColor, GL_TRUE);
+		glUniform3f(uSolidColor, 0.941, 0.941, 0.941);
+
+		model = glm::mat4(1.0f); // Crea una matriz identidad para el cuerpo
+		model = glm::scale(model, glm::vec3(-1.3f, 1.0f, 0.1f)); // Escala el cuerpo para hacerlo más ancho
+		model = glm::translate(model, glm::vec3(-0.1f, 0.0f, 5.1f)); // Posición inicial del cuerpo
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+
+		// Cuerpo del lado cafe enfrente trasera
+		glUniform1i(uUseSolidColor, GL_TRUE);
+		glUniform3f(uSolidColor, 0.357f, 0.247f, 0.161f);
+
+		model = glm::mat4(1.0f); // Crea una matriz identidad para el cuerpo
+		model = glm::scale(model, glm::vec3(0.222f, 0.5f, 0.1f)); // Escala el cuerpo para hacerlo más ancho
+		model = glm::translate(model, glm::vec3(4.0f, -0.5f, 5.15f)); // Posición inicial del cuerpo
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+
+		// Cuerpo del lado blanco enfrente trasera
+		glUniform1i(uUseSolidColor, GL_TRUE);
 		glUniform3f(uSolidColor, 1.0f, 1.0f, 1.0f);
 
 		model = glm::mat4(1.0f); // Crea una matriz identidad para el cuerpo
-		model = glm::scale(model, glm::vec3(-1.4f, 1.0f, 0.1f)); // Escala el cuerpo para hacerlo más ancho
-		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 5.1f)); // Posición inicial del cuerpo
+		model = glm::scale(model, glm::vec3(0.222f, 0.5f, 0.1f)); // Escala el cuerpo para hacerlo más ancho
+		model = glm::translate(model, glm::vec3(4.0f, 0.5f, 5.15f)); // Posición inicial del cuerpo
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 
 		// Cuerpo del lado negro arriba (aplastado) COLOR CAFE
 		glUniform1i(uUseSolidColor, GL_TRUE);
-		glUniform3f(uSolidColor, 0.545f, 0.412f, 0.325f);
+		glUniform3f(uSolidColor, 0.357f, 0.247f, 0.161f);
 
 		model = glm::mat4(1.0f); // Crea una matriz identidad para el lado negro
 		model = glm::scale(model, glm::vec3(0.4f, 0.1f, 1.0f)); // Escala para hacerlo más bajo (y largo)
-		model = glm::translate(model, glm::vec3(-1.8f, 5.6f, 0.0)); // Mueve el rectángulo encima del cuerpo, ajustado en Y
+		model = glm::translate(model, glm::vec3(-1.8f, 5.6f, 0.0f)); // Mueve el rectángulo encima del cuerpo, ajustado en Y
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glDrawArrays(GL_TRIANGLES, 0, 36); // Dibuja el rectángulo
 
@@ -249,17 +269,17 @@ int main() {
 
 		model = glm::mat4(1.0f); // Crea una matriz identidad para el lado blanco
 		model = glm::scale(model, glm::vec3(1.5f, 0.1f, 1.0f)); // Escala para hacerlo más bajo (y largo)
-		model = glm::translate(model, glm::vec3(0.15f, 5.0f, 0.0)); // Mueve el rectángulo encima del cuerpo, ajustado en Y
+		model = glm::translate(model, glm::vec3(0.15f, 5.6f, 0.0)); // Mueve el rectángulo encima del cuerpo, ajustado en Y
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glDrawArrays(GL_TRIANGLES, 0, 36); // Dibuja el rectángulo
 
 		// Cuerpo del lado negro atrás COLOR NEGRO
 		glUniform1i(uUseSolidColor, GL_TRUE);
-		glUniform3f(uSolidColor, 0.545f, 0.412f, 0.325f);
+		glUniform3f(uSolidColor, 0.357f, 0.247f, 0.161f);
 
 		model = glm::mat4(1.0f); // Crea una matriz identidad para el cuerpo
 		model = glm::scale(model, glm::vec3(0.4f, 1.0f, 0.1f)); // Escala el cuerpo para hacerlo más ancho
-		model = glm::translate(model, glm::vec3(-1.8f, 0.0f, -5.1f)); // Posición inicial del cuerpo
+		model = glm::translate(model, glm::vec3(-1.8f, 0.0f, -5.5f)); // Posición inicial del cuerpo
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 
@@ -268,14 +288,34 @@ int main() {
 		glUniform3f(uSolidColor, 1.0f, 1.0f, 1.0f);
 
 		model = glm::mat4(1.0f); // Crea una matriz identidad para el cuerpo
-		model = glm::scale(model, glm::vec3(-1.4f, 1.0f, 0.1f)); // Escala el cuerpo para hacerlo más ancho
-		model = glm::translate(model, glm::vec3(0.0f, 0.0f, -5.0f)); // Posición inicial del cuerpo
+		model = glm::scale(model, glm::vec3(-1.3f, 1.0f, 0.1f)); // Escala el cuerpo para hacerlo más ancho
+		model = glm::translate(model, glm::vec3(-0.1f, 0.0f, -5.1f)); // Posición inicial del cuerpo
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 
-		// Cabeza relieve COLOR BLANCO
+		// Cuerpo atras cafe enfrente trasera
+		glUniform1i(uUseSolidColor, GL_TRUE);
+		glUniform3f(uSolidColor, 0.357f, 0.247f, 0.161f);
+
+		model = glm::mat4(1.0f); // Crea una matriz identidad para el cuerpo
+		model = glm::scale(model, glm::vec3(0.222f, 0.5f, 0.1f)); // Escala el cuerpo para hacerlo más ancho
+		model = glm::translate(model, glm::vec3(4.0f, -0.5f, -5.15f)); // Posición inicial del cuerpo
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+
+		// Cuerpo del lado blanco enfrente trasera
 		glUniform1i(uUseSolidColor, GL_TRUE);
 		glUniform3f(uSolidColor, 1.0f, 1.0f, 1.0f);
+
+		model = glm::mat4(1.0f); // Crea una matriz identidad para el cuerpo
+		model = glm::scale(model, glm::vec3(0.222f, 0.5f, 0.1f)); // Escala el cuerpo para hacerlo más ancho
+		model = glm::translate(model, glm::vec3(4.0f, 0.5f, -5.15f)); // Posición inicial del cuerpo
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+
+		// Cabeza COLOR BLANCO
+		glUniform1i(uUseSolidColor, GL_TRUE);
+		glUniform3f(uSolidColor, 0.941, 0.941, 0.941);
 
 		model = glm::mat4(1.0f); // Nueva matriz para la cabeza
 		model = glm::scale(model, glm::vec3(0.6f, 0.8f, 0.8f)); // Escala la cabeza un poco más pequeña
@@ -289,31 +329,150 @@ int main() {
 
 		model = glm::mat4(1.0f); // Crea una matriz identidad para el lado negro
 		model = glm::scale(model, glm::vec3(0.6f, 0.1f, 0.7f)); // Escala para hacerlo más bajo (y largo)
-		model = glm::translate(model, glm::vec3(-2.1f, 3.6f, 0.0f)); // Mueve el rectángulo encima del cuerpo, ajustado en Y
+		model = glm::translate(model, glm::vec3(-2.1f, 3.8f, 0.0f)); // Mueve el rectángulo encima del cuerpo, ajustado en Y
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glDrawArrays(GL_TRIANGLES, 0, 36); // Dibuja el rectángulo
 
 
-		////Segunda pata de la mesa
-		//model = glm::mat4(1.0f);
-		//model = glm::scale(model, glm::vec3(0.2f, 0.8f, 0.2f));//Tamaño de la pata
-		//model = glm::translate(model, glm::vec3(-7.9f, -0.4f, -3.9f));//Posición de la pata
-		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		//glDrawArrays(GL_TRIANGLES, 0, 36);
+		//Primera pata relieve
+		glUniform1i(uUseSolidColor, GL_TRUE);
+		glUniform3f(uSolidColor, 0.627f, 0.471f, 0.353f);
 
-		////Tercer pata de la mesa
-		//model = glm::mat4(1.0f);
-		//model = glm::scale(model, glm::vec3(0.2f, 0.8f, 0.2f));//Tamaño de la pata
-		//model = glm::translate(model, glm::vec3(7.9f, -0.4f, -3.9f));//Posición de la pata
-		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		//glDrawArrays(GL_TRIANGLES, 0, 36);
+		model = glm::mat4(1.0f);
+		model = glm::scale(model, glm::vec3(0.1f, 0.4f, 0.2f));//Tamaño de la pata
+		model = glm::translate(model, glm::vec3(-9.5f, -1.75f, -1.6f));//Posición de la pata
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);
 
-		////Cuarta pata de la mesa
-		//model = glm::mat4(1.0f);
-		//model = glm::scale(model, glm::vec3(0.2f, 0.8f, 0.2f));//Tamaño de la pata
-		//model = glm::translate(model, glm::vec3(-7.9f, -0.4f, 3.9f));//Posición de la pata
-		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		//glDrawArrays(GL_TRIANGLES, 0, 36);
+		//Primera pata
+		glUniform1i(uUseSolidColor, GL_TRUE);
+		glUniform3f(uSolidColor, 0.357f, 0.247f, 0.161f);
+
+		model = glm::mat4(1.0f);
+		model = glm::scale(model, glm::vec3(0.2f, 0.4f, 0.3f));//Tamaño de la pata
+		model = glm::translate(model, glm::vec3(-4.0f, -1.75f, -1.2f));//Posición de la pata
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+
+		//Segunda pata relieve
+		glUniform1i(uUseSolidColor, GL_TRUE);
+		glUniform3f(uSolidColor, 0.627f, 0.471f, 0.353f);
+
+		model = glm::mat4(1.0f);
+		model = glm::scale(model, glm::vec3(0.1f, 0.4f, 0.2f));//Tamaño de la pata
+		model = glm::translate(model, glm::vec3(6.5f, -1.75f, -1.6f));//Posición de la pata
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+
+		//Segunda pata
+		glUniform1i(uUseSolidColor, GL_TRUE);
+		glUniform3f(uSolidColor, 0.357f, 0.247f, 0.161f);
+
+		model = glm::mat4(1.0f);
+		model = glm::scale(model, glm::vec3(0.2f, 0.4f, 0.3f));//Tamaño de la pata
+		model = glm::translate(model, glm::vec3(4.0f, -1.75f, -1.2f));//Posición de la pata
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+
+		//Tercera pata relieve
+		glUniform1i(uUseSolidColor, GL_TRUE);
+		glUniform3f(uSolidColor, 0.627f, 0.471f, 0.353f);
+
+		model = glm::mat4(1.0f);
+		model = glm::scale(model, glm::vec3(0.1f, 0.4f, 0.2f));//Tamaño de la pata
+		model = glm::translate(model, glm::vec3(-9.5f, -1.75f, 1.6f));//Posición de la pata
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+
+		//Tercera pata
+		glUniform1i(uUseSolidColor, GL_TRUE);
+		glUniform3f(uSolidColor, 0.357f, 0.247f, 0.161f);
+
+		model = glm::mat4(1.0f);
+		model = glm::scale(model, glm::vec3(0.2f, 0.4f, 0.3f));//Tamaño de la pata
+		model = glm::translate(model, glm::vec3(-4.0f, -1.75f, 1.2f));//Posición de la pata
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+
+		//Cuarta pata relieve
+		glUniform1i(uUseSolidColor, GL_TRUE);
+		glUniform3f(uSolidColor, 0.627f, 0.471f, 0.353f);
+
+		model = glm::mat4(1.0f);
+		model = glm::scale(model, glm::vec3(0.1f, 0.4f, 0.2f));//Tamaño de la pata
+		model = glm::translate(model, glm::vec3(6.5f, -1.75f, 1.6f));//Posición de la pata
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+
+		//Cuarta pata
+		glUniform1i(uUseSolidColor, GL_TRUE);
+		glUniform3f(uSolidColor, 0.357f, 0.247f, 0.161f);
+
+		model = glm::mat4(1.0f);
+		model = glm::scale(model, glm::vec3(0.2f, 0.4f, 0.3f));//Tamaño de la pata
+		model = glm::translate(model, glm::vec3(4.0f, -1.75f, 1.2f));//Posición de la pata
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+
+		// Cola mitad cafe
+		glUniform1i(uUseSolidColor, GL_TRUE);
+		glUniform3f(uSolidColor, 0.357f, 0.247f, 0.161f);
+
+		model = glm::mat4(1.0f); // Nueva matriz para la cabeza
+		model = glm::scale(model, glm::vec3(0.1f, 0.5f, 1.0f)); // Escala la cabeza un poco más pequeña
+		model = glm::translate(model, glm::vec3(10.55f, -0.5f, 0.0f)); // Posiciona la cabeza justo encima del cuerpo
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+
+		// Cola mitad blanca
+		glUniform1i(uUseSolidColor, GL_TRUE);
+		glUniform3f(uSolidColor, 1.0f, 1.0f, 1.0f);
+
+		model = glm::mat4(1.0f); // Nueva matriz para la cabeza
+		model = glm::scale(model, glm::vec3(0.1f, 0.5f, 1.0f)); // Escala la cabeza un poco más pequeña
+		model = glm::translate(model, glm::vec3(10.55f, 0.5f, 0.0f)); // Posiciona la cabeza justo encima del cuerpo
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+
+		// Cola
+		glUniform1i(uUseSolidColor, GL_TRUE);
+		glUniform3f(uSolidColor, 0.545f, 0.412f, 0.325f);
+
+		model = glm::mat4(1.0f); // Nueva matriz para la cabeza
+		model = glm::scale(model, glm::vec3(0.1f, 0.2f, 0.2f)); // Escala la cabeza un poco más pequeña
+		model = glm::translate(model, glm::vec3(11.6f, -0.1f, 0.0f)); // Posiciona la cabeza justo encima del cuerpo
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+
+		// Ojo izq
+		glUniform1i(uUseSolidColor, GL_TRUE);
+		glUniform3f(uSolidColor, 0.545f, 0.412f, 0.325f);
+
+		model = glm::mat4(1.0f); // Nueva matriz para la cabeza
+		model = glm::scale(model, glm::vec3(0.1f, 0.3f, 0.3f)); // Escala la cabeza un poco más pequeña
+		model = glm::translate(model, glm::vec3(-16.2f, 0.55f, -0.8f)); // Posiciona la cabeza justo encima del cuerpo
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+
+		// Ojo dere.
+		glUniform1i(uUseSolidColor, GL_TRUE);
+		glUniform3f(uSolidColor, 0.545f, 0.412f, 0.325f);
+
+		model = glm::mat4(1.0f); // Nueva matriz para la cabeza
+		model = glm::scale(model, glm::vec3(0.1f, 0.3f, 0.3f)); // Escala la cabeza un poco más pequeña
+		model = glm::translate(model, glm::vec3(-16.2f, 0.55f, 0.8f)); // Posiciona la cabeza justo encima del cuerpo
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+
+		// Ojo der
+		glUniform1i(uUseSolidColor, GL_TRUE);
+		glUniform3f(uSolidColor, 1.0f, 1.0f, 1.0f);
+
+		model = glm::mat4(1.0f); // Nueva matriz para la cabeza
+		model = glm::scale(model, glm::vec3(0.1f, 0.3f, 0.2f)); // Escala la cabeza un poco más pequeña
+		model = glm::translate(model, glm::vec3(-16.2f, 0.55f, 0.0f)); // Posiciona la cabeza justo encima del cuerpo
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);
 
 		glBindVertexArray(0);
 
@@ -334,19 +493,19 @@ void Inputs(GLFWwindow* window) {
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)  //GLFW_RELEASE
 		glfwSetWindowShouldClose(window, true);
 	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-		movX += 0.005f;
+		movX += 0.05f;
 	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-		movX -= 0.005f;
+		movX -= 0.05f;
 	if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
-		movY += 0.005f;
+		movY += 0.05f;
 	if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
-		movY -= 0.005f;
+		movY -= 0.05f;
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-		movZ -= 0.005f;
+		movZ -= 0.05f;
 	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-		movZ += 0.005f;
+		movZ += 0.05f;
 	if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
-		rot += 0.04f;
+		rot += 0.4f;
 	if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
-		rot -= 0.04f;
+		rot -= 0.4f;
 }
