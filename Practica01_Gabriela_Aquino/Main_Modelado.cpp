@@ -19,14 +19,14 @@
 // Shaders
 #include "Shader.h"
 
-void Inputs(GLFWwindow *window);
+void Inputs(GLFWwindow* window);
 
 
 const GLint WIDTH = 800, HEIGHT = 600;
 //Manipulan el entorno sin necesidad de compilar el programa
-float movX=0.0f;
-float movY=0.0f;
-float movZ=-5.0f;
+float movX = 0.0f;
+float movY = 0.0f;
+float movZ = -5.0f;
 float rot = 0.0f;
 int main() {
 	glfwInit();
@@ -39,7 +39,7 @@ int main() {
 
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
-	GLFWwindow *window = glfwCreateWindow(WIDTH, HEIGHT, "Previo 4 Gabriela Aquino", nullptr, nullptr);
+	GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "Previo 4 Gabriela Aquino", nullptr, nullptr);
 
 	int screenWidth, screenHeight;
 
@@ -83,7 +83,7 @@ int main() {
 
 	// Set up vertex data (and buffer(s)) and attribute pointers
 
-	
+
 
 	// use with Perspective Projection
 	float vertices[] = {
@@ -93,35 +93,35 @@ int main() {
 		0.5f,  0.5f, 0.5f,  1.0f, 0.0f,0.0f,
 		-0.5f,  0.5f, 0.5f, 1.0f, 0.0f,0.0f,
 		-0.5f, -0.5f, 0.5f, 1.0f, 0.0f,0.0f,
-		
-	    -0.5f, -0.5f,-0.5f, 0.0f, 1.0f,0.0f,//Back
+
+		-0.5f, -0.5f,-0.5f, 0.0f, 1.0f,0.0f,//Back
 		 0.5f, -0.5f,-0.5f, 0.0f, 1.0f,0.0f,
 		 0.5f,  0.5f,-0.5f, 0.0f, 1.0f,0.0f,
 		 0.5f,  0.5f,-0.5f, 0.0f, 1.0f,0.0f,
-	    -0.5f,  0.5f,-0.5f, 0.0f, 1.0f,0.0f,
-	    -0.5f, -0.5f,-0.5f, 0.0f, 1.0f,0.0f,
-		
+		-0.5f,  0.5f,-0.5f, 0.0f, 1.0f,0.0f,
+		-0.5f, -0.5f,-0.5f, 0.0f, 1.0f,0.0f,
+
 		 0.5f, -0.5f,  0.5f,  0.0f, 0.0f,1.0f,
 		 0.5f, -0.5f, -0.5f,  0.0f, 0.0f,1.0f,
 		 0.5f,  0.5f, -0.5f,  0.0f, 0.0f,1.0f,
 		 0.5f,  0.5f, -0.5f,  0.0f, 0.0f,1.0f,
 		 0.5f,  0.5f,  0.5f,  0.0f, 0.0f,1.0f,
 		 0.5f,  -0.5f, 0.5f, 0.0f, 0.0f,1.0f,
-      
+
 		-0.5f,  0.5f,  0.5f,  1.0f, 1.0f,0.0f,
 		-0.5f,  0.5f, -0.5f,  1.0f, 1.0f,0.0f,
 		-0.5f, -0.5f, -0.5f,  1.0f, 1.0f,0.0f,
 		-0.5f, -0.5f, -0.5f,  1.0f, 1.0f,0.0f,
 		-0.5f, -0.5f,  0.5f,  1.0f, 1.0f,0.0f,
 		-0.5f,  0.5f,  0.5f,  1.0f, 1.0f,0.0f,
-		
+
 		-0.5f, -0.5f, -0.5f, 0.0f, 1.0f,1.0f,
 		0.5f, -0.5f, -0.5f,  0.0f, 1.0f,1.0f,
 		0.5f, -0.5f,  0.5f,  0.0f, 1.0f,1.0f,
 		0.5f, -0.5f,  0.5f,  0.0f, 1.0f,1.0f,
 		-0.5f, -0.5f,  0.5f, 0.0f, 1.0f,1.0f,
 		-0.5f, -0.5f, -0.5f, 0.0f, 1.0f,1.0f,
-		
+
 		-0.5f,  0.5f, -0.5f, 1.0f, 0.2f,0.5f,
 		0.5f,  0.5f, -0.5f,  1.0f, 0.2f,0.5f,
 		0.5f,  0.5f,  0.5f,  1.0f, 0.2f,0.5f,
@@ -151,11 +151,11 @@ int main() {
 	// 4. Despues colocamos las caracteristicas de los vertices
 
 	//Posicion
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid *)0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid*)0);
 	glEnableVertexAttribArray(0);
 
 	//Color
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid *)(3 * sizeof(GLfloat)));
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
 	glEnableVertexAttribArray(1);
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -163,84 +163,163 @@ int main() {
 
 	glBindVertexArray(0); // Unbind VAO (it's always a good thing to unbind any buffer/array to prevent strange bugs)
 
-	
-	glm::mat4 projection=glm::mat4(1);
+
+	glm::mat4 projection = glm::mat4(1);
 
 	projection = glm::perspective(glm::radians(45.0f), (GLfloat)screenWidth / (GLfloat)screenHeight, 0.1f, 100.0f);//FOV, Radio de aspecto,znear,zfar
 	//projection = glm::ortho(0.0f, (GLfloat)screenWidth, 0.0f, (GLfloat)screenHeight, 0.1f, 1000.0f);//Izq,Der,Fondo,Alto,Cercania,Lejania
 	while (!glfwWindowShouldClose(window))
 	{
-		
+
 		Inputs(window);
 		// Check if any events have been activiated (key pressed, mouse moved etc.) and call corresponding response functions
 		glfwPollEvents();
 
 		// Render
 		// Clear the colorbuffer
-		glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT| GL_DEPTH_BUFFER_BIT);
+		glClearColor(0.549f, 0.710f, 0.827f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 
 		// Draw our first triangle
 		ourShader.Use();
-		glm::mat4 model=glm::mat4(1);
-		glm::mat4 view=glm::mat4(1);
-	
+		glm::mat4 model = glm::mat4(1);
+		glm::mat4 view = glm::mat4(1);
 
-		view = glm::translate(view, glm::vec3(movX,movY, movZ));
+
+		view = glm::translate(view, glm::vec3(movX, movY, movZ));
 		view = glm::rotate(view, glm::radians(rot), glm::vec3(0.0f, 1.0f, 0.0f));
 
 		GLint modelLoc = glGetUniformLocation(ourShader.Program, "model");
 		GLint viewLoc = glGetUniformLocation(ourShader.Program, "view");
 		GLint projecLoc = glGetUniformLocation(ourShader.Program, "projection");
-
+		GLint uUseSolidColor = glGetUniformLocation(ourShader.Program, "useSolidColor");
+		GLint uSolidColor = glGetUniformLocation(ourShader.Program, "solidColor");
 
 		glUniformMatrix4fv(projecLoc, 1, GL_FALSE, glm::value_ptr(projection));
 		glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-	
+
 
 		glBindVertexArray(VAO);
-		//Base de la mesa
-	    model = glm::mat4(1.0f);
-		model = glm::scale(model, glm::vec3(4.0f, 0.2f, 2.0f));
-		model = glm::translate(model, glm::vec3(0.0f, 0.4f, 0.0f));
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glDrawArrays(GL_TRIANGLES, 0, 36);
-		
-		//Primer pata de la mesa
-		model = glm::mat4(1.0f);
-		model = glm::scale(model, glm::vec3(0.2f, 0.8f, 0.2f));//Tamaño de la pata
-		model = glm::translate(model, glm::vec3(7.9f, -0.4f, 3.9f));//Posición de la pata
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glDrawArrays(GL_TRIANGLES, 0, 36);
-		
-		//Segunda pata de la mesa
-		model = glm::mat4(1.0f);
-		model = glm::scale(model, glm::vec3(0.2f, 0.8f, 0.2f));//Tamaño de la pata
-		model = glm::translate(model, glm::vec3(-7.9f, -0.4f, -3.9f));//Posición de la pata
+
+		// Cuerpo completo COLOR BLANCO
+		glUniform1i(uUseSolidColor, GL_TRUE);
+		glUniform3f(uSolidColor, 1.0f, 1.0f, 1.0f);
+
+		model = glm::mat4(1.0f); // Crea una matriz identidad para el cuerpo
+		model = glm::scale(model, glm::vec3(2.0f, 1.0f, 1.0f)); // Escala el cuerpo para hacerlo más ancho
+		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f)); // Posición inicial del cuerpo
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 
-		//Tercer pata de la mesa
-		model = glm::mat4(1.0f);
-		model = glm::scale(model, glm::vec3(0.2f, 0.8f, 0.2f));//Tamaño de la pata
-		model = glm::translate(model, glm::vec3(7.9f, -0.4f, -3.9f));//Posición de la pata
+		// Cuerpo del lado negro enfrente COLOR NEGRO
+		glUniform1i(uUseSolidColor, GL_TRUE);
+		glUniform3f(uSolidColor, 0.545f, 0.412f, 0.325f);
+
+		model = glm::mat4(1.0f); // Crea una matriz identidad para el cuerpo
+		model = glm::scale(model, glm::vec3(0.4f, 1.0f, 0.1f)); // Escala el cuerpo para hacerlo más ancho
+		model = glm::translate(model, glm::vec3(-1.8f, 0.0f, 5.1f)); // Posición inicial del cuerpo
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 
-		//Cuarta pata de la mesa
-		model = glm::mat4(1.0f);
-		model = glm::scale(model, glm::vec3(0.2f, 0.8f, 0.2f));//Tamaño de la pata
-		model = glm::translate(model, glm::vec3(-7.9f, -0.4f, 3.9f));//Posición de la pata
+		// Cuerpo del lado blanco enfrente COLOR BLANCO
+		glUniform1i(uUseSolidColor, GL_TRUE);
+		glUniform3f(uSolidColor, 1.0f, 1.0f, 1.0f);
+
+		model = glm::mat4(1.0f); // Crea una matriz identidad para el cuerpo
+		model = glm::scale(model, glm::vec3(-1.4f, 1.0f, 0.1f)); // Escala el cuerpo para hacerlo más ancho
+		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 5.1f)); // Posición inicial del cuerpo
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glDrawArrays(GL_TRIANGLES, 0, 36);
+
+		// Cuerpo del lado negro arriba (aplastado) COLOR CAFE
+		glUniform1i(uUseSolidColor, GL_TRUE);
+		glUniform3f(uSolidColor, 0.545f, 0.412f, 0.325f);
+
+		model = glm::mat4(1.0f); // Crea una matriz identidad para el lado negro
+		model = glm::scale(model, glm::vec3(0.4f, 0.1f, 1.0f)); // Escala para hacerlo más bajo (y largo)
+		model = glm::translate(model, glm::vec3(-1.8f, 5.6f, 0.0)); // Mueve el rectángulo encima del cuerpo, ajustado en Y
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36); // Dibuja el rectángulo
+
+		// Cuerpo del lado blanco arriba (aplastado) COLOR BLANCO
+		glUniform1i(uUseSolidColor, GL_TRUE);
+		glUniform3f(uSolidColor, 1.0f, 1.0f, 1.0f);
+
+		model = glm::mat4(1.0f); // Crea una matriz identidad para el lado blanco
+		model = glm::scale(model, glm::vec3(1.5f, 0.1f, 1.0f)); // Escala para hacerlo más bajo (y largo)
+		model = glm::translate(model, glm::vec3(0.15f, 5.0f, 0.0)); // Mueve el rectángulo encima del cuerpo, ajustado en Y
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36); // Dibuja el rectángulo
+
+		// Cuerpo del lado negro atrás COLOR NEGRO
+		glUniform1i(uUseSolidColor, GL_TRUE);
+		glUniform3f(uSolidColor, 0.545f, 0.412f, 0.325f);
+
+		model = glm::mat4(1.0f); // Crea una matriz identidad para el cuerpo
+		model = glm::scale(model, glm::vec3(0.4f, 1.0f, 0.1f)); // Escala el cuerpo para hacerlo más ancho
+		model = glm::translate(model, glm::vec3(-1.8f, 0.0f, -5.1f)); // Posición inicial del cuerpo
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+
+		// Cuerpo del lado blanco atrás COLOR BLANCO
+		glUniform1i(uUseSolidColor, GL_TRUE);
+		glUniform3f(uSolidColor, 1.0f, 1.0f, 1.0f);
+
+		model = glm::mat4(1.0f); // Crea una matriz identidad para el cuerpo
+		model = glm::scale(model, glm::vec3(-1.4f, 1.0f, 0.1f)); // Escala el cuerpo para hacerlo más ancho
+		model = glm::translate(model, glm::vec3(0.0f, 0.0f, -5.0f)); // Posición inicial del cuerpo
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+
+		// Cabeza relieve COLOR BLANCO
+		glUniform1i(uUseSolidColor, GL_TRUE);
+		glUniform3f(uSolidColor, 1.0f, 1.0f, 1.0f);
+
+		model = glm::mat4(1.0f); // Nueva matriz para la cabeza
+		model = glm::scale(model, glm::vec3(0.6f, 0.8f, 0.8f)); // Escala la cabeza un poco más pequeña
+		model = glm::translate(model, glm::vec3(-2.1f, -0.1f, 0.0f)); // Posiciona la cabeza justo encima del cuerpo
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+
+		// Cuerpo del lado negro arriba (aplastado) COLOR blanco
+		glUniform1i(uUseSolidColor, GL_TRUE);
+		glUniform3f(uSolidColor, 1.0f, 1.0f, 1.0f);
+
+		model = glm::mat4(1.0f); // Crea una matriz identidad para el lado negro
+		model = glm::scale(model, glm::vec3(0.6f, 0.1f, 0.7f)); // Escala para hacerlo más bajo (y largo)
+		model = glm::translate(model, glm::vec3(-2.1f, 3.6f, 0.0f)); // Mueve el rectángulo encima del cuerpo, ajustado en Y
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36); // Dibuja el rectángulo
+
+
+		////Segunda pata de la mesa
+		//model = glm::mat4(1.0f);
+		//model = glm::scale(model, glm::vec3(0.2f, 0.8f, 0.2f));//Tamaño de la pata
+		//model = glm::translate(model, glm::vec3(-7.9f, -0.4f, -3.9f));//Posición de la pata
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//glDrawArrays(GL_TRIANGLES, 0, 36);
+
+		////Tercer pata de la mesa
+		//model = glm::mat4(1.0f);
+		//model = glm::scale(model, glm::vec3(0.2f, 0.8f, 0.2f));//Tamaño de la pata
+		//model = glm::translate(model, glm::vec3(7.9f, -0.4f, -3.9f));//Posición de la pata
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//glDrawArrays(GL_TRIANGLES, 0, 36);
+
+		////Cuarta pata de la mesa
+		//model = glm::mat4(1.0f);
+		//model = glm::scale(model, glm::vec3(0.2f, 0.8f, 0.2f));//Tamaño de la pata
+		//model = glm::translate(model, glm::vec3(-7.9f, -0.4f, 3.9f));//Posición de la pata
+		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		//glDrawArrays(GL_TRIANGLES, 0, 36);
 
 		glBindVertexArray(0);
 
 		// Swap the screen buffers
 		glfwSwapBuffers(window);
-	
+
 	}
 	glDeleteVertexArrays(1, &VAO);
 	glDeleteBuffers(1, &VBO);
@@ -248,28 +327,26 @@ int main() {
 
 	glfwTerminate();
 	return EXIT_SUCCESS;
- }
- //Vamos a poder ir modificando los parametros cuando el programa se este ejecutando
- //EStos valores son los que mueven la vista
- void Inputs(GLFWwindow *window) {
-	 if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)  //GLFW_RELEASE
-		 glfwSetWindowShouldClose(window, true);
-	 if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-		 movX += 0.005f;
-	 if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-		 movX -= 0.005f;
-	 if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
-		 movY += 0.005f;
-	 if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
-		 movY -= 0.005f;
-	 if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-		 movZ -= 0.005f;
-	 if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-		 movZ += 0.005f;
-	 if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
-		 rot += 0.04f;
-	 if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
-		 rot -= 0.04f;
- }
-
-
+}
+//Vamos a poder ir modificando los parametros cuando el programa se este ejecutando
+//EStos valores son los que mueven la vista
+void Inputs(GLFWwindow* window) {
+	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)  //GLFW_RELEASE
+		glfwSetWindowShouldClose(window, true);
+	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+		movX += 0.005f;
+	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+		movX -= 0.005f;
+	if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
+		movY += 0.005f;
+	if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
+		movY -= 0.005f;
+	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+		movZ -= 0.005f;
+	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+		movZ += 0.005f;
+	if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
+		rot += 0.04f;
+	if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
+		rot -= 0.04f;
+}
