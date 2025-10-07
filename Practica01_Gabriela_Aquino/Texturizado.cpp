@@ -1,8 +1,7 @@
-
 //Aquino Lozada Gabriela
-//Previo 07
+//Practica 07
 //319040012
-//Fecha de entrega: 28 de septiembre deL 2025
+//Fecha de entrega: 07 de octubre deL 2025
 
 #include <iostream>
 #include <cmath>
@@ -27,8 +26,8 @@
 
 
 // Function prototypes
-void KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mode);
-void MouseCallback(GLFWwindow *window, double xPos, double yPos);
+void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode);
+void MouseCallback(GLFWwindow* window, double xPos, double yPos);
 void DoMovement();
 
 // Window dimensions
@@ -49,7 +48,7 @@ glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
 GLfloat deltaTime = 0.0f;	// Time between current frame and last frame
 GLfloat lastFrame = 0.0f;  	// Time of last frame
 
-							// The MAIN function, from here we start the application and run the game loop
+// The MAIN function, from here we start the application and run the game loop
 int main()
 {
 	// Init GLFW
@@ -62,7 +61,7 @@ int main()
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
 	// Create a GLFWwindow object that we can use for GLFW's functions
-	GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "Previo 07 Gabriela Aquino", nullptr, nullptr);
+	GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "Practica 07 Gabriela Aquino", nullptr, nullptr);
 
 	if (nullptr == window)
 	{
@@ -103,26 +102,72 @@ int main()
 	Shader lampShader("Shader/lamp.vs", "Shader/lamp.frag");
 
 	// Set up vertex data (and buffer(s)) and attribute pointers
+// Vértices (Posición)   // Colores
+	// Vértices (Posición)   // Color           // Coordenadas de Textura (UV)
 	GLfloat vertices[] =
 	{
-		// Positions            // Colors              // Texture Coords
-		-0.5f, -0.5f, 0.0f,    1.0f, 1.0f,1.0f,		1.5f,0.5f,
-		0.5f, -0.5f, 0.0f,	   1.0f, 1.0f,1.0f,		2.5f,0.0f,
-		0.5f,  0.5f, 0.0f,     1.0f, 1.0f,1.0f,	    2.5f,2.5f,
-		-0.5f,  0.5f, 0.0f,    1.0f, 1.0f,1.0f,		0.0f,2.5f,
+		// Frente              // Colors              // Texture Coords
+		-0.5f, -0.5f, 0.5f,    1.0f, 1.0f,1.0f,		0.0f,0.25f,
+		0.5f, -0.5f, 0.5f,	   1.0f, 1.0f,1.0f,		0.333f,0.25f,
+		0.5f,  0.5f, 0.5f,     1.0f, 1.0f,1.0f,	    0.333f,0.5f,
+		-0.5f,  0.5f, 0.5f,    1.0f, 1.0f,1.0f,		0.0f,0.5f,
 
-		
+		// Derecha            // Colors              // Texture Coords
+		0.5f, -0.5f, 0.5f,    1.0f, 1.0f,1.0f,		0.333f,0.25f,
+		0.5f, -0.5f, -0.5f,	   1.0f, 1.0f,1.0f,		0.666f,0.25f,
+		0.5f,  0.5f, -0.5f,     1.0f, 1.0f,1.0f,	0.666f,0.5f,
+		0.5f,  0.5f, 0.5f,    1.0f, 1.0f,1.0f,		0.333f,0.5f,
+
+		// Atras                // Colors              // Texture Coords
+		-0.5f, -0.5f, -0.5f,   1.0f, 1.0f,1.0f, 	1.0f,0.25f,
+		-0.5f, 0.5f, -0.5f,	   1.0f, 1.0f,1.0f,		1.0f,0.5f,
+		0.5f,  0.5f, -0.5f,    1.0f, 1.0f,1.0f,	    0.666f,0.5f,
+		0.5f,  -0.5f, -0.5f,   1.0f, 1.0f,1.0f,		0.666f,0.25f,
+
+		// Izquierda             // Colors              // Texture Coords
+		-0.5f, -0.5f, -0.5f,   1.0f, 1.0f,1.0f,		0.666f,0.75f,
+		-0.5f, -0.5f, 0.5f,	   1.0f, 1.0f,1.0f,		0.333f,0.75f,
+		-0.5f,  0.5f, 0.5f,    1.0f, 1.0f,1.0f,	    0.333f,1.0f,
+		-0.5f,  0.5f, -0.5f,   1.0f, 1.0f,1.0f,		0.666f,1.0f,
+
+		// Arriba            // Colors              // Texture Coords
+		-0.5f, 0.5f, 0.5f,   1.0f, 1.0f,1.0f,		0.333f,0.75f,
+		0.5f, 0.5f, 0.5f,	   1.0f, 1.0f,1.0f,		0.666f,0.75f,
+		0.5f,  0.5f, -0.5f,    1.0f, 1.0f,1.0f,	    0.666f,0.5f,
+		-0.5f,  0.5f, -0.5f,   1.0f, 1.0f,1.0f,		0.333f,0.5f,
+
+		// Abajo             // Colors              // Texture Coords
+		-0.5f, -0.5f, -0.5f,   1.0f, 1.0f,1.0f,		0.333f,0.25f,
+		0.5f, -0.5f, -0.5f,	   1.0f, 1.0f,1.0f,		0.666f,0.25f,
+		0.5f,  -0.5f, 0.5f,    1.0f, 1.0f,1.0f,	    0.666f,0.0f,
+		-0.5f,  -0.5f, 0.5f,   1.0f, 1.0f,1.0f,		0.333f,0.0f,
+
 	};
 
 	GLuint indices[] =
 	{  // Note that we start from 0!
-		0,1,3,
-		1,2,3
-	
+		0,1,2,//frente
+		0,2,3,
+
+		4,5,6,//derecha
+		4,6,7,
+
+		8,9,10,//atras
+		8,10,11,
+
+		12,13,14,//izquierda
+		12,14,15,
+
+		16,17,18,//arriba
+		16,18,19,
+
+		20,21,22,//abajo
+		20,22,23
+
 	};
 
 	// First, set the container's VAO (and VBO)
-	GLuint VBO, VAO,EBO;
+	GLuint VBO, VAO, EBO;
 	glGenVertexArrays(1, &VAO);
 	glGenBuffers(1, &VBO);
 	glGenBuffers(1, &EBO);
@@ -135,35 +180,35 @@ int main()
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
 	// Position attribute
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid *)0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)0);
 	glEnableVertexAttribArray(0);
 	// Color attribute
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid *)(3 * sizeof(GLfloat)));
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
 	glEnableVertexAttribArray(1);
 	// Texture Coordinate attribute
-	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid *)(6 * sizeof(GLfloat)));
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(6 * sizeof(GLfloat)));
 	glEnableVertexAttribArray(2);
 	glBindVertexArray(0);
 
 	// Load textures
 	GLuint texture1;
 	glGenTextures(1, &texture1);
-	glBindTexture(GL_TEXTURE_2D,texture1);
-	int textureWidth, textureHeight,nrChannels;
+	glBindTexture(GL_TEXTURE_2D, texture1);
+	int textureWidth, textureHeight, nrChannels;
 	stbi_set_flip_vertically_on_load(true);
-	unsigned char *image;
+	unsigned char* image;
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST_MIPMAP_NEAREST);
 	// Diffuse map
-	image = stbi_load("images/micky.jpg", &textureWidth, &textureHeight, &nrChannels,0);
+	image = stbi_load("images/Dado.png", &textureWidth, &textureHeight, &nrChannels, 0);
 	glBindTexture(GL_TEXTURE_2D, texture1);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, textureWidth, textureHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, textureWidth, textureHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
 	glGenerateMipmap(GL_TEXTURE_2D);
 	if (image)
 	{
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, textureWidth, textureHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, textureWidth, textureHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
 		glGenerateMipmap(GL_TEXTURE_2D);
 	}
 	else
@@ -172,7 +217,7 @@ int main()
 	}
 	stbi_image_free(image);
 
-	
+
 
 	// Game loop
 	while (!glfwWindowShouldClose(window))
@@ -212,7 +257,7 @@ int main()
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		// Draw the light object (using light's vertex attributes)
 		glBindVertexArray(VAO);
-		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
 		glBindVertexArray(0);
 
 		// Swap the screen buffers
@@ -254,7 +299,7 @@ void DoMovement()
 }
 
 // Is called whenever a key is pressed/released via GLFW
-void KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mode)
+void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mode)
 {
 	if (GLFW_KEY_ESCAPE == key && GLFW_PRESS == action)
 	{
@@ -274,7 +319,7 @@ void KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mode
 	}
 }
 
-void MouseCallback(GLFWwindow *window, double xPos, double yPos)
+void MouseCallback(GLFWwindow* window, double xPos, double yPos)
 {
 	if (firstMouse)
 	{
