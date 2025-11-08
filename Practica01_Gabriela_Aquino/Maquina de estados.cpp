@@ -1,6 +1,6 @@
 //Aquino Lozada Gabriela
-//Previo 11
-//Fecha de entrega: 02 de noviembre del 2025
+//Practica 11
+//Fecha de entrega: 07 de noviembre del 2025
 //319040012
 
 #include <iostream>
@@ -121,6 +121,20 @@ bool step = false;
 //Limite en Z
 float limiteZ = 2.35f;
 
+//segmentos a caminar y girar
+
+float distanceSeg1 = 2.2f; 
+float distanceSeg2 = 2.2f; 
+float distanceSeg3 = 4.0f;
+float targetAngle1 = -90.0f; 
+float targetAngle2 = -180.0f;
+
+glm::vec3 originPos;
+float targetAngleDiag;
+
+float moveSpeed = 0.0001f;
+float turnSpeed = 0.2f;
+glm::vec3 segmentStartPos;
 
 
 // Deltatime
@@ -139,7 +153,7 @@ int main()
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);*/
 
 	// Create a GLFWwindow object that we can use for GLFW's functions
-	GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "Previo 11 Gabriela Aquino", nullptr, nullptr);
+	GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "Practica 11 Gabriela Aquino", nullptr, nullptr);
 
 	if (nullptr == window)
 	{
@@ -509,8 +523,12 @@ void KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mode
 	}
 	if (keys[GLFW_KEY_B])
 	{
-		dogAnim = 1;
-
+		if (dogAnim == 0) { 
+			dogAnim = 1; // 1 = Empezar a caminar 
+			segmentStartPos = dogPos;
+			dogRot = 0.0f;
+			originPos = dogPos;
+		}
 	}
 	
 }
@@ -518,48 +536,145 @@ void Animation() {
 	if (AnimBall)
 	{
 		rotBall += 0.4f;
-		//printf("%f", rotBall);
 	}
 
 	if (AnimDog)
 	{
 		rotDog -= 0.6f;
-		//printf("%f", rotBall);
 	}
 
-	if (dogAnim == 1) { //Walk Animation
+	bool isWalking = (dogAnim == 1 || dogAnim == 3 || dogAnim == 5 || dogAnim == 7);
 
-		// Si la posición del perro es menor al limite inicia la animación
-		if (dogPos.z < limiteZ)
-		{
-			if (!step) { //
-				RLegs += 0.3f;
-				FLegs += 0.3f;
-				head += 0.3f;
-				tail += 0.3f;
-				if (RLegs > 15.0f)// Condition
-					step = true;
-			}
-			else
-			{
-				RLegs -= 0.3f;
-				FLegs -= 0.3f;
-				head -= 0.3f;
-				tail -= 0.3f;
-				if (RLegs < -15.0f)// Condition
-					step = false;
-			}
-
-			dogPos.z += 0.0001;
+	if (isWalking) {
+		if (!step) {
+			RLegs += 0.3f;
+			FLegs += 0.3f;
+			head += 0.3f;
+			tail += 0.3f;
+			if (RLegs > 15.0f)
+				step = true;
 		}
 		else
 		{
-			// Si ya llegó al límite 
-			dogAnim = 0; // Detiene la animación 
+			RLegs -= 0.3f;
+			FLegs -= 0.3f;
+			head -= 0.3f;
+			tail -= 0.3f;
+			if (RLegs < -15.0f)
+				step = false;
+		}
+	}
+	else {
+	
+		if (dogAnim == 2 || dogAnim == 4 || dogAnim == 6) {
+			RLegs = 0.0f;
+			FLegs = 0.0f;
+			head = 0.0f;
+			tail = 0.0f;
+		}
+		else {
+			RLegs *= 0.9f;
+			FLegs *= 0.9f;
+			head *= 0.9f;
+			tail *= 0.9f;
 		}
 
-		//printf("%/nf", RLegs);
+		if (abs(RLegs) < 0.1f) step = false;
 	}
+
+
+	
+
+	if (dogAnim == 1) {
+		dogPos.x += sin(glm::radians(dogRot)) * moveSpeed;
+		dogPos.z += cos(glm::radians(dogRot)) * moveSpeed;
+		float distanceTraveled = glm::distance(dogPos, segmentStartPos);
+		if (distanceTraveled >= distanceSeg1)
+		{
+			dogAnim = 2;
+		}
+
+	}
+	else if (dogAnim == 2) {
+		if (dogRot > targetAngle1)
+		{
+			dogRot -= turnSpeed;
+			if (dogRot <= targetAngle1)
+			{
+				dogRot = targetAngle1;
+				dogAnim = 3;
+				segmentStartPos = dogPos;
+			}
+		}
+	}
+	else if (dogAnim == 3) {
+		dogPos.x += sin(glm::radians(dogRot)) * moveSpeed;
+		dogPos.z += cos(glm::radians(dogRot)) * moveSpeed;
+		float distanceTraveled = glm::distance(dogPos, segmentStartPos);
+		if (distanceTraveled >= distanceSeg2)
+		{
+			dogAnim = 4;
+		}
+	}
+	else if (dogAnim == 4) {
+		if (dogRot > targetAngle2)
+		{
+			dogRot -= turnSpeed;
+			if (dogRot <= targetAngle2)
+			{
+				dogRot = targetAngle2;
+				dogAnim = 5;
+				segmentStartPos = dogPos;
+			}
+		}
+	}
+
+	else if (dogAnim == 5) {
+
+		dogPos.x += sin(glm::radians(dogRot)) * moveSpeed;
+		dogPos.z += cos(glm::radians(dogRot)) * moveSpeed;
+		float distanceTraveled = glm::distance(dogPos, segmentStartPos);
+
+		if (distanceTraveled >= distanceSeg3)
+		{
+			glm::vec3 dirToOrigin = originPos - dogPos;
+
+			targetAngleDiag = glm::degrees(atan2(dirToOrigin.x, dirToOrigin.z));
+
+			dogAnim = 6;
+		}
+	}
+
+
+	else if (dogAnim == 6) { 
+
+		if (abs(dogRot - targetAngleDiag) < turnSpeed) {
+			dogRot = targetAngleDiag; // 
+			dogAnim = 7; 
+		}
+		else if (dogRot < targetAngleDiag) {
+			dogRot += turnSpeed;
+		}
+		else if (dogRot > targetAngleDiag) {
+			dogRot -= turnSpeed;
+		}
+	}
+	else if (dogAnim == 7) { 
+
+		dogPos.x += sin(glm::radians(dogRot)) * moveSpeed;
+		dogPos.z += cos(glm::radians(dogRot)) * moveSpeed;
+
+		
+		float distanceToOrigin = glm::distance(dogPos, originPos);
+
+		if (distanceToOrigin < 0.1f)
+		{
+			dogAnim = 0; 
+			dogPos = originPos; 
+			dogRot = 0.0f; 
+		}
+	}
+	// Si dogAnim == 0 (IDLE), no hace nada.
 }
 
 void MouseCallback(GLFWwindow *window, double xPos, double yPos)
